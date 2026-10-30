@@ -32,6 +32,8 @@ export class Picker {
   private outsideClickCount = 0;
   private measureEls: HTMLElement[] = [];
   private enabled = true;
+  // A full-screen tool (the device preview) is open: nothing on the page behind it can be hovered, picked or saved.
+  private paused = false;
   private scrolling = false;
   private scrollTimer = 0;
 
@@ -104,6 +106,15 @@ export class Picker {
     }
   }
 
+  setPaused(on: boolean): void {
+    this.paused = on;
+    if (on) {
+      this.hovered = null;
+      this.callbacks.onHover?.(null);
+      this.clearMeasure();
+    }
+  }
+
   // Redraws the outline around the locked element, e.g. after a forced state changed its size.
   refresh(): void {
     if (this.locked) this.drawOutline(this.locked, true);
@@ -114,7 +125,7 @@ export class Picker {
   }
 
   private onMouseMove(e: MouseEvent): void {
-    if (!this.enabled) return;
+    if (!this.enabled || this.paused) return;
     // While the page scrolls, Chrome keeps sending mouse moves as new content slides under a still
     // pointer. Following them would make the highlight hop from element to element.
     if (this.scrolling) return;
@@ -138,7 +149,7 @@ export class Picker {
   }
 
   private onClick(e: MouseEvent): void {
-    if (!this.enabled) return;
+    if (!this.enabled || this.paused) return;
     const target = e.target as Element;
 
     if (this.locked) {
@@ -202,6 +213,8 @@ export class Picker {
       if (!this.callbacks.onEscape?.()) this.closeExtension();
       return;
     }
+
+    if (this.paused) return;
 
     if (!this.locked && this.enabled && this.hovered && !e.ctrlKey && !e.metaKey && !e.altKey && !this.isOwnElement(e.target as Element | null)) {
       const key = e.key.toLowerCase() === 'f' ? 'figma' : e.key.toLowerCase() === 's' ? 'save' : null;

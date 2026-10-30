@@ -7,6 +7,8 @@ export interface DevicePreviewCallbacks {
   // The page refused to be shown in a frame: offer a real window of this size instead.
   onOpenWindow: (width: number, height: number) => void;
   onClose: () => void;
+  // The preview opened or closed: the page behind it must not scroll or react while it is open.
+  onVisibility: (open: boolean) => void;
   // Turns mobile emulation (user agent, touch-style hover and pointer) on for a device, or off with null.
   emulate: (spec: Emulation | null) => Promise<{ ok: boolean; error?: string }>;
 }
@@ -69,6 +71,7 @@ export class DevicePreview {
     this.width = device.width;
     this.height = device.height;
     this.el.style.display = 'flex';
+    this.callbacks.onVisibility(true);
     this.render();
     window.addEventListener('resize', this.onResize);
   }
@@ -77,6 +80,7 @@ export class DevicePreview {
     if (!this.device) return;
     this.device = null;
     void this.callbacks.emulate(null);
+    this.callbacks.onVisibility(false);
     this.el.style.display = 'none';
     this.el.innerHTML = '';
     window.removeEventListener('resize', this.onResize);

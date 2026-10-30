@@ -30,6 +30,23 @@ interface ActiveState {
 
 let active: ActiveState | undefined;
 
+// While the device preview is open, only the preview scrolls: the page behind it is held still, so a
+// wheel or swipe that reaches the end of the phone's own scrolling does not carry on into the site.
+let savedOverflow: { html: string; body: string } | null = null;
+function setPageScrollLocked(on: boolean): void {
+  const html = document.documentElement;
+  const body = document.body;
+  if (on && !savedOverflow) {
+    savedOverflow = { html: html.style.overflow, body: body?.style.overflow ?? '' };
+    html.style.overflow = 'hidden';
+    if (body) body.style.overflow = 'hidden';
+  } else if (!on && savedOverflow) {
+    html.style.overflow = savedOverflow.html;
+    if (body) body.style.overflow = savedOverflow.body;
+    savedOverflow = null;
+  }
+}
+
 function activate(): void {
   window.__pixelpeekActive = true;
   const { root } = createShadowRoot();
@@ -55,6 +72,11 @@ function activate(): void {
       }
     },
     onClose: () => {},
+    onVisibility: (open) => {
+      setPageScrollLocked(open);
+      picker.setPaused(open);
+      if (open) hover.hide();
+    },
     // The background script attaches Chrome's emulation to this tab (user agent, touch-style hover and pointer).
     emulate: async (spec) => {
       if (typeof chrome === 'undefined' || !chrome.runtime?.id) return { ok: false, error: 'not available here' };

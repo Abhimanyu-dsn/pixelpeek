@@ -1128,3 +1128,6 @@
 /* Responsive preview: whether the mobile browser switch is on. */
 .pp-dp-emu { margin-left: auto; padding: 0 10px; font-size: 12px; color: #8FD3A5; white-space: nowrap; }
 .pp-dp-emu-warn { color: #F5CD47; }
+
+/* The preview owns scrolling while it is open. */
+.pp-dp, .pp-dp-stage { overscroll-behavior: contain; }

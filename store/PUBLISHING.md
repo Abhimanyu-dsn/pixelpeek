@@ -6,7 +6,7 @@ Everything in this folder is ready. What is left is yours to do: accounts, the f
 
 | File | What it is |
 |---|---|
-| `pixelpeek-1.1.0.zip` | The package to upload (the contents of `dist/`, with `manifest.json` at the top). |
+| `pixelpeek-1.1.1.zip` | The package to upload (the contents of `dist/`, with `manifest.json` at the top). |
 | `listing.md` | Every text field for the listing, the privacy answers, and which image goes where. |
 | `privacy-policy.html` | The privacy policy page. Replace `YOUR-EMAIL@example.com` before hosting it. |
 | `screenshots/` | Five 1280×800 screenshots. |
@@ -31,7 +31,7 @@ The store needs a public web address for it.
 
 ## 3. Upload and fill in the listing
 
-1. In the dashboard click **New item** and upload `pixelpeek-1.1.0.zip`.
+1. In the dashboard click **New item** and upload `pixelpeek-1.1.1.zip`.
 2. **Store listing:** copy the name, summary, description, category and language from `listing.md`. Upload the icon from the package, the five screenshots in order, and the small promo tile (and the marquee if you like).
 3. **Privacy:** copy the single purpose and the four permission justifications from `listing.md`. Leave every data-usage category unticked, tick the three certifications, and paste your privacy policy URL.
 4. **Distribution:** choose **Public** (or **Unlisted** if you want to test with a link first), and the regions you want (all regions is fine).
