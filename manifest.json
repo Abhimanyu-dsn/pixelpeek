@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
   "name": "PixelPeek",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Inspect any element, copy it to Figma as editable layers, and pull colours, fonts, assets and the design system from any page.",
-  "permissions": ["activeTab", "scripting", "storage"],
+  "permissions": ["activeTab", "scripting", "storage", "debugger"],
   "action": {
     "default_title": "PixelPeek"
   },

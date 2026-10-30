@@ -26,7 +26,7 @@ FOR DESIGNERS
 • Copy as Figma layers: copy an element, the visible area or the whole page, then paste into Figma as editable rectangles, text, gradients, shadows, images and icons.
 • Design system, read from the page: the site's own CSS variables (with dark-mode values), the colours it uses grouped by role, its text styles, shadows, spacing, radius and components. Nothing is generated or guessed.
 • Assets: images, SVGs, icons, video and CSS backgrounds, one by one or as a ZIP.
-• Responsive preview: see the page inside phone, tablet and desktop mockups at their real CSS sizes.
+• Responsive preview: see the page inside phone, tablet and desktop mockups at their real CSS sizes, with a phone or tablet user agent and touch input switched on, like Chrome's device toolbar.
 • Spacing guides and Alt-measure: draw margin and padding on the page, and hold Alt to measure the distance between two elements.
 • Contrast checker with AA and AAA results, including text on gradients.
 
@@ -57,6 +57,7 @@ Inspect the elements of the web page you are viewing and extract its design info
 - `activeTab`: lets PixelPeek run on the tab where the user clicks the toolbar icon, and only that tab, without asking for access to every site.
 - `scripting`: used to inject PixelPeek's inspector into that tab when the user clicks the icon.
 - `storage`: keeps the user's saved elements (the Saved library) and the position of the floating tool pill and panel on their own computer, in `chrome.storage.local`.
+- `debugger`: used only by the Responsive preview, and only while the user has a phone or tablet preview open. It sets the device's user agent and touch input on the current tab (the same two switches as Chrome's own device toolbar) so a site shows the mobile version it would show on that device. It is attached when the preview opens and detached when it closes. It never reads page data through the debugger, and nothing is recorded or sent anywhere.
 
 **Host permissions**
 None requested.

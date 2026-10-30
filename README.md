@@ -17,7 +17,7 @@ Outputs to `dist/`. `npm run watch` rebuilds on change (you still reload the ext
 2. Click "Load unpacked" and select the `dist/` folder.
 3. Click the PixelPeek icon on any web page to start. Press **Esc**, click the **Stop inspecting** pill at the top of the page, or click the icon again to exit.
 
-Permissions: `activeTab`, `scripting`, `storage` (for the Saved library). No `downloads`, no host permissions: files are saved straight from the page.
+Permissions: `activeTab`, `scripting`, `storage` (for the Saved library), and `debugger` (only for the responsive preview's mobile emulation, below). No `downloads`, no host permissions: files are saved straight from the page.
 
 ## The panel
 
@@ -65,7 +65,8 @@ For developers: the selected element's **Tailwind classes** (click one to copy i
 
 ### Responsive preview
 The phone icon opens a device list (Responsive, Phones, Tablets, Desktop, Watches, with search and *Quick Start iPhone 16 Pro*). Choosing one shows the page inside a mockup of that device at its real CSS size, so media queries answer as they would on the device. Rotate, reload, and for *Responsive* type any size. Esc closes the preview (a second Esc exits PixelPeek).
-Limits: the page is loaded in a frame, which sites can forbid; PixelPeek says so and offers a real browser window of that size instead. It sets the size only: no mobile user agent, touch events or device pixel ratio.
+**It switches the browser to a phone or tablet, the way Chrome's device toolbar does.** While a phone or tablet preview is open, PixelPeek uses Chrome's `debugger` permission to send that device's user agent (iPhone and iPad as Safari, Pixel, Galaxy and Android tablets as Chrome) and to turn on touch input (`hover: none`, `pointer: coarse`), then loads the page, so sites that choose their layout from the user agent send their mobile version. The top bar says "iOS browser on" or "Android browser on". Chrome shows its own "PixelPeek started debugging this browser" bar for as long as the preview is open, and everything is switched back when you close it. Laptops, monitors and watches, and custom sizes of 1024px or more, change nothing.
+Limits: the page is loaded in a frame, which sites can forbid; PixelPeek says so and offers a real browser window of that size instead. If Chrome's DevTools is open on the same tab the switch can fail, and the bar says "Frame only"; close DevTools and press Reload. The device pixel ratio is not emulated.
 
 ### Measuring and exit
 Hover shows `tag · width × height`. With an element selected, hold **Alt** over another element to see the pixel distances between them.

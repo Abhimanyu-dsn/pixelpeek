@@ -1124,3 +1124,7 @@
 .pp-ov-tools .pp-ov-tool { position: relative; flex: 0 0 auto; width: 40px; height: 34px; padding: 0; }
 /* The tools sit on the right of the row; the grip stays on the left. */
 .pp-ov-tools .pp-ov-tool:first-of-type { margin-left: auto; }
+
+/* Responsive preview: whether the mobile browser switch is on. */
+.pp-dp-emu { margin-left: auto; padding: 0 10px; font-size: 12px; color: #8FD3A5; white-space: nowrap; }
+.pp-dp-emu-warn { color: #F5CD47; }

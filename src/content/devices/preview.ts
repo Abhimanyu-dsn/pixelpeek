@@ -1,10 +1,14 @@
 import type { Device, FrameStyle } from './devices';
 import { escapeHtml } from '../panel/html';
+import { emulationFor } from './emulation';
+import type { Emulation } from './emulation';
 
 export interface DevicePreviewCallbacks {
   // The page refused to be shown in a frame: offer a real window of this size instead.
   onOpenWindow: (width: number, height: number) => void;
   onClose: () => void;
+  // Turns mobile emulation (user agent, touch-style hover and pointer) on for a device, or off with null.
+  emulate: (spec: Emulation | null) => Promise<{ ok: boolean; error?: string }>;
 }
 
 interface Bezel {
@@ -72,6 +76,7 @@ export class DevicePreview {
   close(): void {
     if (!this.device) return;
     this.device = null;
+    void this.callbacks.emulate(null);
     this.el.style.display = 'none';
     this.el.innerHTML = '';
     window.removeEventListener('resize', this.onResize);
@@ -102,6 +107,7 @@ export class DevicePreview {
             <input type="number" min="200" max="3000" value="${h}" data-pp-dp-h aria-label="Height">
           </div>
           <div class="pp-dp-presets">${PRESETS.map((p) => `<button class="pp-chip" data-pp-dp-preset="${p}">${p}</button>`).join('')}</div>` : ''}
+        <span class="pp-dp-emu" data-pp-dp-emu></span>
         <span class="pp-dp-scale" data-pp-dp-scale></span>
         <button class="pp-btn" data-pp-dp-rotate title="Rotate">Rotate</button>
         <button class="pp-btn" data-pp-dp-reload title="Reload the preview">Reload</button>
@@ -125,7 +131,7 @@ export class DevicePreview {
     this.loadFrame();
   }
 
-  private loadFrame(): void {
+  private async loadFrame(): Promise<void> {
     const iframe = this.el.querySelector<HTMLIFrameElement>('[data-pp-dp-iframe]');
     const blocked = this.el.querySelector<HTMLElement>('[data-pp-dp-blocked]');
     if (!iframe || !blocked) return;
@@ -140,6 +146,17 @@ export class DevicePreview {
       }
       blocked.hidden = allowed;
     });
+    // Switch the browser to a phone or tablet first, so the page is asked for as that device would ask.
+    const device = this.device;
+    const note = this.el.querySelector<HTMLElement>('[data-pp-dp-emu]');
+    const spec = device ? emulationFor(device, this.screen().w) : null;
+    if (note) note.textContent = spec ? 'Switching to a mobile browser...' : '';
+    const result = await this.callbacks.emulate(spec);
+    if (!iframe.isConnected) return;
+    if (note) {
+      note.textContent = !spec ? '' : result.ok ? `${spec.platform === 'ios' ? 'iOS' : 'Android'} browser on` : `Frame only (${result.error ?? 'could not emulate'})`;
+      note.classList.toggle('pp-dp-emu-warn', !!spec && !result.ok);
+    }
     iframe.src = location.href;
   }
 

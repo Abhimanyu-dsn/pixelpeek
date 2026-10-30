@@ -55,6 +55,16 @@ function activate(): void {
       }
     },
     onClose: () => {},
+    // The background script attaches Chrome's emulation to this tab (user agent, touch-style hover and pointer).
+    emulate: async (spec) => {
+      if (typeof chrome === 'undefined' || !chrome.runtime?.id) return { ok: false, error: 'not available here' };
+      try {
+        const reply = (await chrome.runtime.sendMessage({ pp: 'emulate', spec })) as { ok: boolean; error?: string } | undefined;
+        return reply ?? { ok: false, error: 'no answer from the extension' };
+      } catch (error) {
+        return { ok: false, error: error instanceof Error ? error.message.slice(0, 100) : 'failed' };
+      }
+    },
   });
 
   // Builds Figma layers for an element and puts them on the clipboard.
