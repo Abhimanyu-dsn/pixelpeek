@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PixelPeek: inspect any website like a designer</title>
+<meta name="description" content="PixelPeek is a free Chrome extension. Hover any element to read its styles, copy it into Figma as editable layers, and pull a page's real design system. Download it here.">
+<meta name="theme-color" content="#0B1B3A">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<header class="nav" id="top">
+  <a class="brand" href="#top" aria-label="PixelPeek home">
+    <img src="img/logo.png" width="40" height="40" alt="">
+    <span>PixelPeek</span>
+  </a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="#inspect">Inspect</a>
+    <a href="#figma">Figma</a>
+    <a href="#system">Design system</a>
+    <a href="#responsive">Responsive</a>
+    <a href="#code">Code</a>
+    <a href="#install">Install</a>
+  </nav>
+  <a class="btn btn-primary btn-sm" href="download/pixelpeek-1.1.1.zip" download>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
+    Download
+  </a>
+</header>
+
+<main>
+  <!-- ============================== HERO ============================== -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true"><i></i><i></i><i></i></div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="dot"></span> Free Chrome extension · No account</p>
+        <h1>See any website <br>the way a <span class="grad">designer</span> does.</h1>
+        <p class="lead">Hover to read every style. Select to see every colour inside. Copy it into Figma as editable layers. Pull the page's real design system. All inside your browser.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary btn-lg" href="download/pixelpeek-1.1.1.zip" download>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
+            Download the extension
+          </a>
+          <a class="btn btn-ghost btn-lg" href="#install">How to install</a>
+        </div>
+        <p class="fine">Version 1.1.1 · 96 KB · works in Chrome, Edge, Brave and Arc</p>
+      </div>
+
+      <div class="demo" id="heroDemo" aria-hidden="true">
+        <div class="demo-bar"><i></i><i></i><i></i><span class="url">acme.studio</span></div>
+        <div class="demo-body" id="heroBody">
+          <div class="mini" id="heroMini"></div>
+          <div class="d-outline" id="dOutline"></div>
+          <div class="d-chip" id="dChip"></div>
+          <div class="d-card" id="dCard"></div>
+          <div class="d-panel" id="dPanel"></div>
+          <div class="d-pill" id="dPill">
+            <img src="img/logo.png" width="26" height="26" alt="">
+          </div>
+          <svg class="d-cursor" id="dCursor" width="22" height="22" viewBox="0 0 24 24"><path d="M4 3l16 7.5-7 2-2 7z" fill="#0B1B3A" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+    </div>
+    <noscript><div class="wrap"><img class="shot" src="img/shot-1.webp" alt="PixelPeek hover card on a web page"></div></noscript>
+
+    <div class="wrap trust">
+      <span>Free forever</span><span>No account</span><span>Nothing leaves your browser</span><span>Designers first, developers too</span>
+    </div>
+  </section>
+
+  <!-- ============================== INSPECT ============================== -->
+  <section class="feature" id="inspect">
+    <div class="wrap feature-grid">
+      <div class="copy reveal">
+        <p class="kicker">01 · Inspect</p>
+        <h2>Point at anything. Read it like a design tool.</h2>
+        <p>Click the toolbar icon and hover. A small card follows your pointer with the size, font, text and fill colours, contrast ratio, padding and radius of whatever is under it. No DevTools, no hunting through CSS.</p>
+        <ul class="ticks">
+          <li>Contrast with AA and AAA, including text on gradients</li>
+          <li>Press <kbd>F</kbd> to copy it to Figma, <kbd>S</kbd> to save it</li>
+          <li>Hold <kbd>Alt</kbd> to measure the space between two elements</li>
+        </ul>
+      </div>
+      <div class="visual reveal">
+        <figure class="browser tilt">
+          <div class="browser-bar"><i></i><i></i><i></i></div>
+          <img class="shot" src="img/shot-1.webp" width="1280" height="800" alt="PixelPeek's hover card showing size, font, colours and contrast on a button" loading="lazy">
+          <span class="callout c1">Contrast 5.2:1</span>
+          <span class="callout c2">Fill #0C66E4</span>
+          <span class="callout c3">Padding 12 20</span>
+          <span class="scan" aria-hidden="true"></span>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== COLOURS ============================== -->
+  <section class="feature alt" id="colors">
+    <div class="wrap feature-grid flip">
+      <div class="visual reveal">
+        <div class="colors-demo anim" id="colorsDemo" aria-hidden="true">
+          <div class="cd-card">
+            <div class="cd-img"></div>
+            <span class="cd-badge">New</span>
+            <h4>Components</h4>
+            <p>Reusable pieces that keep your product consistent.</p>
+            <i class="cd-ring"></i>
+          </div>
+          <div class="cd-swatches" id="cdSwatches"></div>
+        </div>
+        <img class="shot peek reveal" src="img/shot-2.webp" width="1280" height="800" alt="The Colors card listing every colour on the selected card and inside it" loading="lazy">
+      </div>
+      <div class="copy reveal">
+        <p class="kicker">02 · Colours</p>
+        <h2>Select a section. Get every colour inside it.</h2>
+        <p>Other tools show the colours of the one element you clicked. PixelPeek reads the element and everything inside it, so a whole card, hero or footer gives you its complete palette, split into "on this element" and "inside it".</p>
+        <ul class="ticks">
+          <li>Fill, text, border, icon and gradient colours, with how often each is used</li>
+          <li>Hover a swatch, click to copy the hex</li>
+          <li>Gradients you can copy as CSS in one click</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== FIGMA ============================== -->
+  <section class="feature" id="figma">
+    <div class="wrap feature-grid">
+      <div class="copy reveal">
+        <p class="kicker">03 · Copy to Figma</p>
+        <h2>From the live site to editable Figma layers.</h2>
+        <p>Select an element, the visible area or a whole page, press copy, and paste into Figma. You get real rectangles, real text, gradients, strokes, radii, shadows, images and icons: layers you can edit, not a flat screenshot.</p>
+        <ul class="ticks">
+          <li>One click from the panel, or <kbd>F</kbd> while hovering</li>
+          <li>Groups named after the elements they came from</li>
+          <li>Tells you what it had to simplify, never silently</li>
+        </ul>
+      </div>
+      <div class="visual reveal">
+        <div class="figma-demo anim" id="figmaDemo" aria-hidden="true">
+          <div class="layers">
+            <div class="plane p-frame"><span>Frame</span></div>
+            <div class="plane p-img"><span>Image</span></div>
+            <div class="plane p-text"><span>Text</span></div>
+            <div class="plane p-btn"><span>Button</span></div>
+          </div>
+          <div class="arrow-flow"><i></i><i></i><i></i></div>
+          <div class="figma-list">
+            <div class="fl-head">
+              <svg width="14" height="21" viewBox="0 0 38 57" aria-hidden="true"><path d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z" fill="#1ABCFE"/><path d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z" fill="#0ACF83"/><path d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z" fill="#FF7262"/><path d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z" fill="#F24E1E"/><path d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z" fill="#A259FF"/></svg>
+              <b>Layers</b><span class="paste"><kbd>Ctrl</kbd><kbd>V</kbd></span>
+            </div>
+            <div class="fl-row r1"><i class="ic ic-frame"></i>#card-a</div>
+            <div class="fl-row r2 in1"><i class="ic ic-img"></i>Image</div>
+            <div class="fl-row r3 in1"><i class="ic ic-text"></i>Components</div>
+            <div class="fl-row r4 in1"><i class="ic ic-text"></i>Reusable pieces…</div>
+            <div class="fl-row r5 in1"><i class="ic ic-rect"></i>Badge</div>
+            <div class="fl-done">Copied 7 layers ✓</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== DESIGN SYSTEM ============================== -->
+  <section class="feature alt" id="system">
+    <div class="wrap feature-grid flip">
+      <div class="visual reveal">
+        <div class="system-demo anim" id="systemDemo" aria-hidden="true">
+          <div class="sd-top">
+            <b>Variables</b><span class="sd-meta">declared by the site</span>
+            <button class="sd-toggle" tabindex="-1"><i></i><span class="l">Light</span><span class="d">Dark</span></button>
+          </div>
+          <div class="sd-row" style="--l:#0C66E4;--d:#579DFF"><i class="sw"></i><b>--brand-500</b><span>#0c66e4</span></div>
+          <div class="sd-row" style="--l:#FFFFFF;--d:#0D1117"><i class="sw"></i><b>--surface</b><span>#ffffff</span><em>dark</em></div>
+          <div class="sd-row" style="--l:#172B4D;--d:#E6EDF3"><i class="sw"></i><b>--text</b><span>→ --ink-900</span><em>dark</em></div>
+          <div class="sd-row plain"><i class="sw none"></i><b>--radius-md</b><span>8px</span></div>
+          <div class="sd-row plain"><i class="sw none"></i><b>--space-4</b><span>16px</span></div>
+          <div class="sd-roles">
+            <span class="role">Surface</span><span class="role">Text</span><span class="role">Border</span><span class="role">Icon</span>
+            <span class="role t">H1 40/700</span><span class="role t">Body 16/400</span><span class="role t">Shadow 1</span>
+          </div>
+        </div>
+        <img class="shot peek reveal" src="img/shot-3.webp" width="1280" height="800" alt="The Design System tab showing a site's declared variables with dark-mode values" loading="lazy">
+      </div>
+      <div class="copy reveal">
+        <p class="kicker">04 · Design system</p>
+        <h2>The site's real design system. Nothing made up.</h2>
+        <p>PixelPeek reads the variables the site's own authors declared, with the names they gave them, their aliases and their dark-mode values. Then it lists the colours, text styles, shadows, spacing and components the page actually uses. It never invents a palette.</p>
+        <ul class="ticks">
+          <li>CSS variables, with light and dark values side by side</li>
+          <li>Colours grouped by role, matched to the variable that holds them</li>
+          <li>Text styles named by where they appear: H1, Button, Link</li>
+          <li>Every button, input, card and badge variant, with its real values</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== RESPONSIVE ============================== -->
+  <section class="feature" id="responsive">
+    <div class="wrap feature-grid">
+      <div class="copy reveal">
+        <p class="kicker">05 · Responsive</p>
+        <h2>See your site in the phone. The actual mobile version.</h2>
+        <p>Pick a device and the page appears inside a mockup of it at its real size. PixelPeek also switches the browser to that phone or tablet, like Chrome's device toolbar, so sites that send a different mobile page really send it.</p>
+        <ul class="ticks">
+          <li>iPhones, Pixels, Galaxys, iPads, laptops and watches</li>
+          <li>Mobile user agent and touch input switched on while it is open</li>
+          <li>Scroll the phone and only the phone moves. The page behind stays still</li>
+        </ul>
+      </div>
+      <div class="visual reveal">
+        <div class="resp-demo" id="respDemo" aria-hidden="true">
+          <div class="resp-chips" id="respChips">
+            <button tabindex="-1" data-w="390" data-h="720" data-name="iPhone 16" data-note="iOS browser on">iPhone 16</button>
+            <button tabindex="-1" data-w="412" data-h="720" data-name="Pixel 8" data-note="Android browser on">Pixel 8</button>
+            <button tabindex="-1" data-w="820" data-h="560" data-name="iPad Air" data-note="iOS browser on">iPad Air</button>
+            <button tabindex="-1" data-w="1100" data-h="460" data-name="MacBook" data-note="">MacBook</button>
+          </div>
+          <div class="resp-stage">
+            <div class="rframe" id="rFrame">
+              <div class="rsite">
+                <div class="r-nav"><b>Acme</b><span class="r-links"><i>Product</i><i>Pricing</i><i>Docs</i></span><span class="r-burger"><i></i><i></i><i></i></span><span class="r-cta">Get started</span></div>
+                <div class="r-hero"><h5>Design faster,<br>ship cleaner</h5><p>Everything your team needs.</p><span class="r-btn">Start free</span></div>
+                <div class="r-grid"><div></div><div></div><div></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="resp-status"><b id="rName">iPhone 16</b><span id="rNote" class="on">iOS browser on</span></div>
+        </div>
+        <img class="shot peek reveal" src="img/shot-4.webp" width="1280" height="800" alt="PixelPeek's iPhone 16 Pro Max preview showing the mobile layout of a site" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== CODE ============================== -->
+  <section class="feature alt" id="code">
+    <div class="wrap feature-grid flip">
+      <div class="visual reveal">
+        <div class="code-demo" id="codeDemo" aria-hidden="true">
+          <div class="cd-tabs" id="codeTabs">
+            <button tabindex="-1" class="on">Tailwind</button><button tabindex="-1">CSS</button><button tabindex="-1">AI prompt</button><button tabindex="-1">Tokens</button>
+          </div>
+          <pre class="cd-code" id="codeOut"></pre>
+          <div class="cd-formats"><span>CSS vars</span><span>Tailwind v4</span><span>SCSS</span><span>DTCG</span><span>JSON</span><span>DESIGN.md</span></div>
+        </div>
+        <img class="shot peek reveal" src="img/shot-5.webp" width="1280" height="800" alt="The Export tab with Tailwind classes and CSS for a button" loading="lazy">
+      </div>
+      <div class="copy reveal">
+        <p class="kicker">06 · For developers</p>
+        <h2>Straight to code. Tailwind, CSS and tokens.</h2>
+        <p>Select any element and take it as Tailwind classes, raw CSS, or a ready-made prompt for your AI coding tool. Export the page's whole design system in the format your project already uses.</p>
+        <ul class="ticks">
+          <li>Tailwind classes, click one to copy it (no pointless fixed sizes)</li>
+          <li>Copy as AI prompt: every value, ready to paste</li>
+          <li>Export CSS variables, Tailwind v4, SCSS, DTCG, JSON or DESIGN.md</li>
+          <li>Download the whole page as one self-contained HTML file</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== MORE ============================== -->
+  <section class="more" id="more">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="kicker">And everything else you reach for</p>
+        <h2>Small tools that save big clicks.</h2>
+      </div>
+      <div class="more-grid">
+        <article class="mcard reveal">
+          <div class="m-vis ct anim" id="contrastDemo" aria-hidden="true">
+            <div class="ct-sample"><span>Aa</span></div>
+            <div class="ct-num"><b id="ctNum">1.00</b><small>:1</small></div>
+            <span class="ct-tag">AA pass</span><span class="ct-tag ct-tag2">AAA fail</span>
+          </div>
+          <h3>Contrast checker</h3>
+          <p>Ratio and AA/AAA for any text, measured against the real background, even a gradient.</p>
+        </article>
+        <article class="mcard reveal">
+          <div class="m-vis sp anim" aria-hidden="true">
+            <div class="sp-margin"><div class="sp-padding"><div class="sp-box">Box</div><em class="sp-l pl">16</em></div><em class="sp-l ml">24</em></div>
+          </div>
+          <h3>Spacing guides</h3>
+          <p>Draw margin and padding, with their pixel values, right on the page.</p>
+        </article>
+        <article class="mcard reveal">
+          <div class="m-vis ms anim" aria-hidden="true">
+            <div class="ms-a"></div><div class="ms-line"><b>32</b></div><div class="ms-b"></div>
+          </div>
+          <h3>Measure</h3>
+          <p>Select one element, hold <kbd>Alt</kbd> over another and see the exact gap.</p>
+        </article>
+        <article class="mcard reveal">
+          <div class="m-vis as anim" aria-hidden="true">
+            <div class="as-thumbs"><i></i><i></i><i></i><i></i></div>
+            <div class="as-bar"><span></span></div><small>ZIP</small>
+          </div>
+          <h3>Assets</h3>
+          <p>Images, SVGs, icons, video and CSS backgrounds, one by one or as a ZIP. Select an element to see only its assets.</p>
+        </article>
+        <article class="mcard reveal">
+          <div class="m-vis sv anim" aria-hidden="true">
+            <div class="sv-list"><i></i><i></i></div>
+            <div class="sv-new"></div>
+            <svg class="sv-mark" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M6 3h12v18l-6-4-6 4z"/></svg>
+          </div>
+          <h3>Saved library</h3>
+          <p>Keep the elements you like, with their CSS and Tailwind, on your own computer.</p>
+        </article>
+        <article class="mcard reveal">
+          <div class="m-vis ky anim" aria-hidden="true">
+            <div class="ky-keys"><kbd class="k-f">F</kbd><kbd class="k-s">S</kbd><kbd class="k-e">Esc</kbd></div>
+            <div class="ky-toast t-f">Copied 7 layers ✓</div>
+            <div class="ky-toast t-s">Saved ✓</div>
+            <div class="ky-toast t-e">Stopped inspecting</div>
+          </div>
+          <h3>Keyboard first</h3>
+          <p><kbd>F</kbd> copy to Figma, <kbd>S</kbd> save, <kbd>Esc</kbd> leave. Your page stays frozen while you work.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== PRIVACY ============================== -->
+  <section class="privacy">
+    <div class="wrap privacy-grid reveal">
+      <div>
+        <p class="kicker light">Private by design</p>
+        <h2>Free, with no account. And it never phones home.</h2>
+      </div>
+      <ul class="privacy-list">
+        <li><b>Runs in your browser.</b> Everything is read and built on your own computer.</li>
+        <li><b>Nothing is sent anywhere.</b> No analytics, no tracking, no ads, no remote code.</li>
+        <li><b>Only where you click.</b> It runs on the tab where you press its icon, and stops when you press Esc.</li>
+        <li><b>Your library stays yours.</b> Saved elements live in your browser's own storage.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================== INSTALL ============================== -->
+  <section class="install" id="install">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="kicker">Get it</p>
+        <h2>Install in under a minute.</h2>
+        <p class="sub">The complete extension is one small ZIP. Chrome Web Store listing: coming soon.</p>
+      </div>
+      <ol class="steps">
+        <li class="step reveal">
+          <span class="n">1</span>
+          <h3>Download</h3>
+          <p>Get the ZIP and unzip it anywhere. Keep the folder, Chrome reads from it.</p>
+          <a class="btn btn-primary" href="download/pixelpeek-1.1.1.zip" download>Download PixelPeek 1.1.1</a>
+        </li>
+        <li class="step reveal">
+          <span class="n">2</span>
+          <h3>Open extensions</h3>
+          <p>In Chrome, go to <code>chrome://extensions</code> and turn on <b>Developer mode</b> (top right).</p>
+          <button class="btn btn-ghost copy-btn" data-copy="chrome://extensions">Copy chrome://extensions</button>
+        </li>
+        <li class="step reveal">
+          <span class="n">3</span>
+          <h3>Load unpacked</h3>
+          <p>Click <b>Load unpacked</b>, pick the unzipped folder, then click the PixelPeek icon on any page.</p>
+          <span class="chip">Pin it from the puzzle icon for one-click access</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============================== FINAL CTA ============================== -->
+  <section class="final">
+    <div class="wrap final-inner reveal">
+      <img src="img/logo.png" width="72" height="72" alt="">
+      <h2>Stop guessing. Start seeing.</h2>
+      <p>Free, private, and ready in under a minute.</p>
+      <a class="btn btn-primary btn-lg" href="download/pixelpeek-1.1.1.zip" download>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
+        Download the extension
+      </a>
+      <p class="fine light">Version 1.1.1 · 96 KB</p>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <a class="brand" href="#top"><img src="img/logo.png" width="32" height="32" alt=""><span>PixelPeek</span></a>
+    <nav aria-label="Footer">
+      <a href="https://github.com/Abhimanyu-dsn/pixelpeek" rel="noopener">Source on GitHub</a>
+      <a href="privacy.html">Privacy policy</a>
+      <a href="download/pixelpeek-1.1.1.zip" download>Download</a>
+    </nav>
+    <p>Made for designers and developers. Not affiliated with Figma or Google.</p>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status"></div>
+<script src="app.js"></script>
+</body>
+</html>

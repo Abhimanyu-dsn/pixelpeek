@@ -2,6 +2,10 @@
 
 Chrome extension for designers: hover any element on a page and read it the way a design tool shows it, copy it into Figma as editable layers, pull the colours, fonts, assets and a design system out of the whole page, and preview the page inside real device mockups. Free, no account, and nothing leaves your computer.
 
+## Website
+
+`docs/` is a static product website (no build step): `index.html`, `styles.css`, `app.js`, the screenshots in `img/`, and the downloadable extension in `download/pixelpeek-1.1.1.zip`. Open `docs/index.html` in a browser to see it, or publish it free with GitHub Pages: repository Settings, Pages, branch `main`, folder `/docs`. When you release a new version, copy the new zip into `docs/download/` and update the file name in the three download links in `index.html`.
+
 ## Build
 
 ```bash
