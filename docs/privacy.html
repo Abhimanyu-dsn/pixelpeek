@@ -4,18 +4,26 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PixelPeek privacy policy</title>
-<style>
-  body { margin: 0; font: 16px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; color: #172B4D; background: #fff; }
-  main { max-width: 720px; margin: 0 auto; padding: 48px 20px 80px; }
-  h1 { font-size: 32px; margin: 0 0 4px; }
-  h2 { font-size: 20px; margin: 36px 0 8px; }
-  p, li { color: #2C3E5D; }
-  .meta { color: #626F86; margin: 0 0 32px; }
-  a { color: #0C66E4; }
-</style>
+<meta name="theme-color" content="#1E1A16">
+<link rel="icon" type="image/png" href="img/favicon.png">
+<link rel="preload" href="fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<main>
+<header class="nav" id="top">
+  <a class="brand" href="index.html" aria-label="PixelPeek home">
+    <img src="img/logo.png" width="40" height="40" alt="">
+    <span>PixelPeek</span>
+  </a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="index.html">Home</a>
+    <a href="index.html#install">Install</a>
+  </nav>
+  <a class="btn btn-primary btn-sm" href="download/pixelpeek-1.1.1.zip" download>Download</a>
+</header>
+
+<main class="prose">
+  <p class="kicker">Privacy</p>
   <h1>PixelPeek privacy policy</h1>
   <p class="meta">Effective October 27, 2026</p>
 
@@ -56,5 +64,17 @@
   <h2>Contact</h2>
   <p>Questions about this policy: <a href="mailto:bangaloredesigner2020@gmail.com">bangaloredesigner2020@gmail.com</a></p>
 </main>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <a class="brand" href="index.html"><img src="img/logo.png" width="32" height="32" alt=""><span>PixelPeek</span></a>
+    <nav aria-label="Footer">
+      <a href="https://github.com/Abhimanyu-dsn/pixelpeek" rel="noopener">Source on GitHub</a>
+      <a href="privacy.html">Privacy policy</a>
+      <a href="download/pixelpeek-1.1.1.zip" download>Download</a>
+    </nav>
+    <p>Made for designers and developers. Not affiliated with Figma or Google.</p>
+  </div>
+</footer>
 </body>
 </html>

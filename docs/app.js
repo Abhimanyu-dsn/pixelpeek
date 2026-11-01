@@ -5,15 +5,6 @@
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  /* ---------- scroll progress ---------- */
-  const bar = $('#progress');
-  const onScroll = () => {
-    const max = document.documentElement.scrollHeight - innerHeight;
-    bar.style.transform = `scaleX(${max > 0 ? Math.min(1, scrollY / max) : 0})`;
-  };
-  addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
   /* ---------- reveal on scroll, and run animations only while visible ---------- */
   const reveal = new IntersectionObserver((entries) => {
     for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); reveal.unobserve(e.target); }
@@ -276,14 +267,4 @@ inline-block px-5 py-3 font-sans text-[15px] font-semibold bg-[#0C66E4] rounded-
     catch { toast.textContent = 'Type chrome://extensions in the address bar'; }
     toast.classList.add('on'); setTimeout(() => toast.classList.remove('on'), 2200);
   }));
-
-  /* ---------- pointer-follow glow on feature screenshots ---------- */
-  $$('.tilt').forEach((el) => {
-    el.addEventListener('mousemove', (e) => {
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
-      el.style.transform = `perspective(1400px) rotateY(${x * 8}deg) rotateX(${-y * 6}deg) scale(1.01)`;
-    });
-    el.addEventListener('mouseleave', () => { el.style.transform = ''; });
-  });
 })();

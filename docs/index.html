@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PixelPeek: inspect any website like a designer</title>
 <meta name="description" content="PixelPeek is a free Chrome extension. Hover any element to read its styles, copy it into Figma as editable layers, and pull a page's real design system. Download it here.">
-<meta name="theme-color" content="#0B1B3A">
+<meta name="theme-color" content="#1E1A16">
+<link rel="preload" href="fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/body-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" type="image/png" href="img/favicon.png">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="progress" id="progress" aria-hidden="true"></div>
-
 <header class="nav" id="top">
   <a class="brand" href="#top" aria-label="PixelPeek home">
     <img src="img/logo.png" width="40" height="40" alt="">
@@ -34,12 +34,11 @@
 <main>
   <!-- ============================== HERO ============================== -->
   <section class="hero">
-    <div class="hero-bg" aria-hidden="true"><i></i><i></i><i></i></div>
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow"><span class="dot"></span> Free Chrome extension · No account</p>
-        <h1>See any website <br>the way a <span class="grad">designer</span> does.</h1>
-        <p class="lead">Hover to read every style. Select to see every colour inside. Copy it into Figma as editable layers. Pull the page's real design system. All inside your browser.</p>
+        <p class="eyebrow">A free Chrome extension, no account needed</p>
+        <h1>See any website <br>the way a <span class="mark">designer</span> does.</h1>
+        <p class="lead">Hover over anything on a page to read its styles. Select it to see every colour inside. Copy it into Figma as editable layers, or pull out the whole design system. It all happens in your browser.</p>
         <div class="cta-row">
           <a class="btn btn-primary btn-lg" href="download/pixelpeek-1.1.1.zip" download>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
@@ -47,6 +46,7 @@
           </a>
           <a class="btn btn-ghost btn-lg" href="#install">How to install</a>
         </div>
+        <p class="note"><svg width="38" height="30" viewBox="0 0 38 30" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M30 27C14 28 6 20 8 6M8 6L2 13M8 6l8 5"/></svg>it's free, and there's nothing to sign up for</p>
         <p class="fine">Version 1.1.1 · 96 KB · works in Chrome, Edge, Brave and Arc</p>
       </div>
 
@@ -68,7 +68,7 @@
     <noscript><div class="wrap"><img class="shot" src="img/shot-1.webp" alt="PixelPeek hover card on a web page"></div></noscript>
 
     <div class="wrap trust">
-      <span>Free forever</span><span>No account</span><span>Nothing leaves your browser</span><span>Designers first, developers too</span>
+      <span>Free forever</span><span>No account</span><span>Nothing leaves your browser</span><span>Made for designers, handy for developers</span>
     </div>
   </section>
 
@@ -76,9 +76,9 @@
   <section class="feature" id="inspect">
     <div class="wrap feature-grid">
       <div class="copy reveal">
-        <p class="kicker">01 · Inspect</p>
-        <h2>Point at anything. Read it like a design tool.</h2>
-        <p>Click the toolbar icon and hover. A small card follows your pointer with the size, font, text and fill colours, contrast ratio, padding and radius of whatever is under it. No DevTools, no hunting through CSS.</p>
+        <p class="kicker">Inspect</p>
+        <h2>Point at anything and see how it's built.</h2>
+        <p>Click the PixelPeek icon, then hover. A small card follows your mouse and shows the size, font, colours, contrast, padding and corner radius of whatever is under it. No DevTools, no digging through CSS.</p>
         <ul class="ticks">
           <li>Contrast with AA and AAA, including text on gradients</li>
           <li>Press <kbd>F</kbd> to copy it to Figma, <kbd>S</kbd> to save it</li>
@@ -86,13 +86,12 @@
         </ul>
       </div>
       <div class="visual reveal">
-        <figure class="browser tilt">
+        <figure class="browser">
           <div class="browser-bar"><i></i><i></i><i></i></div>
           <img class="shot" src="img/shot-1.webp" width="1280" height="800" alt="PixelPeek's hover card showing size, font, colours and contrast on a button" loading="lazy">
           <span class="callout c1">Contrast 5.2:1</span>
           <span class="callout c2">Fill #0C66E4</span>
           <span class="callout c3">Padding 12 20</span>
-          <span class="scan" aria-hidden="true"></span>
         </figure>
       </div>
     </div>
@@ -115,9 +114,9 @@
         <img class="shot peek reveal" src="img/shot-2.webp" width="1280" height="800" alt="The Colors card listing every colour on the selected card and inside it" loading="lazy">
       </div>
       <div class="copy reveal">
-        <p class="kicker">02 · Colours</p>
+        <p class="kicker">Colours</p>
         <h2>Select a section. Get every colour inside it.</h2>
-        <p>Other tools show the colours of the one element you clicked. PixelPeek reads the element and everything inside it, so a whole card, hero or footer gives you its complete palette, split into "on this element" and "inside it".</p>
+        <p>Most tools only show the colours of the one thing you clicked. PixelPeek also reads everything inside it, so a whole card, hero or footer gives you its full palette.</p>
         <ul class="ticks">
           <li>Fill, text, border, icon and gradient colours, with how often each is used</li>
           <li>Hover a swatch, click to copy the hex</li>
@@ -131,9 +130,9 @@
   <section class="feature" id="figma">
     <div class="wrap feature-grid">
       <div class="copy reveal">
-        <p class="kicker">03 · Copy to Figma</p>
+        <p class="kicker">Copy to Figma</p>
         <h2>From the live site to editable Figma layers.</h2>
-        <p>Select an element, the visible area or a whole page, press copy, and paste into Figma. You get real rectangles, real text, gradients, strokes, radii, shadows, images and icons: layers you can edit, not a flat screenshot.</p>
+        <p>Select an element, the visible area or a whole page, press copy, then paste into Figma. You get real rectangles, text, gradients, strokes, shadows, images and icons. They are layers you can edit, not a flat screenshot.</p>
         <ul class="ticks">
           <li>One click from the panel, or <kbd>F</kbd> while hovering</li>
           <li>Groups named after the elements they came from</li>
@@ -188,9 +187,9 @@
         <img class="shot peek reveal" src="img/shot-3.webp" width="1280" height="800" alt="The Design System tab showing a site's declared variables with dark-mode values" loading="lazy">
       </div>
       <div class="copy reveal">
-        <p class="kicker">04 · Design system</p>
-        <h2>The site's real design system. Nothing made up.</h2>
-        <p>PixelPeek reads the variables the site's own authors declared, with the names they gave them, their aliases and their dark-mode values. Then it lists the colours, text styles, shadows, spacing and components the page actually uses. It never invents a palette.</p>
+        <p class="kicker">Design system</p>
+        <h2>The design system the site really uses.</h2>
+        <p>PixelPeek reads the variables the site's own developers wrote, with the same names and the same dark-mode values. Then it lists the colours, text styles, shadows, spacing and components the page actually uses. Nothing is guessed or generated.</p>
         <ul class="ticks">
           <li>CSS variables, with light and dark values side by side</li>
           <li>Colours grouped by role, matched to the variable that holds them</li>
@@ -205,9 +204,9 @@
   <section class="feature" id="responsive">
     <div class="wrap feature-grid">
       <div class="copy reveal">
-        <p class="kicker">05 · Responsive</p>
-        <h2>See your site in the phone. The actual mobile version.</h2>
-        <p>Pick a device and the page appears inside a mockup of it at its real size. PixelPeek also switches the browser to that phone or tablet, like Chrome's device toolbar, so sites that send a different mobile page really send it.</p>
+        <p class="kicker">Responsive</p>
+        <h2>See the real mobile version, inside a phone.</h2>
+        <p>Pick a device and the page appears inside it at its real size. PixelPeek also makes the browser act like that phone or tablet, the way Chrome's device toolbar does, so sites that serve a separate mobile page actually serve it.</p>
         <ul class="ticks">
           <li>iPhones, Pixels, Galaxys, iPads, laptops and watches</li>
           <li>Mobile user agent and touch input switched on while it is open</li>
@@ -252,8 +251,8 @@
         <img class="shot peek reveal" src="img/shot-5.webp" width="1280" height="800" alt="The Export tab with Tailwind classes and CSS for a button" loading="lazy">
       </div>
       <div class="copy reveal">
-        <p class="kicker">06 · For developers</p>
-        <h2>Straight to code. Tailwind, CSS and tokens.</h2>
+        <p class="kicker">For developers</p>
+        <h2>Take it straight to code.</h2>
         <p>Select any element and take it as Tailwind classes, raw CSS, or a ready-made prompt for your AI coding tool. Export the page's whole design system in the format your project already uses.</p>
         <ul class="ticks">
           <li>Tailwind classes, click one to copy it (no pointless fixed sizes)</li>
@@ -269,8 +268,8 @@
   <section class="more" id="more">
     <div class="wrap">
       <div class="section-head reveal">
-        <p class="kicker">And everything else you reach for</p>
-        <h2>Small tools that save big clicks.</h2>
+        <p class="kicker">Also included</p>
+        <h2>The small things you'll use every day.</h2>
       </div>
       <div class="more-grid">
         <article class="mcard reveal">
@@ -332,7 +331,7 @@
     <div class="wrap privacy-grid reveal">
       <div>
         <p class="kicker light">Private by design</p>
-        <h2>Free, with no account. And it never phones home.</h2>
+        <h2>Free, no account, and it never phones home.</h2>
       </div>
       <ul class="privacy-list">
         <li><b>Runs in your browser.</b> Everything is read and built on your own computer.</li>
@@ -378,8 +377,8 @@
   <section class="final">
     <div class="wrap final-inner reveal">
       <img src="img/logo.png" width="72" height="72" alt="">
-      <h2>Stop guessing. Start seeing.</h2>
-      <p>Free, private, and ready in under a minute.</p>
+      <h2>Try it on your own website.</h2>
+      <p>It's free, it's private, and it takes about a minute to set up.</p>
       <a class="btn btn-primary btn-lg" href="download/pixelpeek-1.1.1.zip" download>
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
         Download the extension
