@@ -5,7 +5,8 @@
   "description": "Chrome extension for designers: hover, lock and inspect any element on a page, including its hover/focus/state variants.",
   "scripts": {
     "build": "node esbuild.config.mjs",
-    "watch": "node esbuild.config.mjs --watch"
+    "watch": "node esbuild.config.mjs --watch",
+    "release": "node scripts/release.mjs"
   },
   "devDependencies": {
     "@types/chrome": "^0.0.270",

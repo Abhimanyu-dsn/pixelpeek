@@ -47,11 +47,33 @@ The responsive preview uses Chrome's `debugger` permission to switch to a mobile
 - If it is rejected, the email names the reason. Common ones are a missing privacy policy, permissions that are not justified, or a description that does not match the extension. Fix it, raise the version in `manifest.json` (for example to `1.0.1`), rebuild, and upload a new zip.
 - Once approved, your listing has an address. Share it, and anyone can click **Add to Chrome**. It also installs in Edge, Brave, Arc and Opera.
 
-## Releasing an update later
+## Releasing an update
 
-1. Change `version` in `manifest.json` (it must go up each time).
-2. Run `npm run build`.
-3. Zip the contents of `dist/` (not the folder itself) so `manifest.json` is at the top level.
-4. Dashboard, then your item, then **Package**, then **Upload new package**, and submit.
+Updates are published by GitHub. Pushing a version tag (for example `v1.2.0`) to `Abhimanyu-dsn/pixelpeek` runs `.github/workflows/publish.yml`, which builds the extension, uploads it to the Chrome Web Store, submits it for review, and attaches the zip to a GitHub release. Users get the update automatically once Google approves it.
 
-Chrome updates installed copies automatically after the update is approved.
+### Each release
+
+1. `npm run release -- minor` (or `patch`, `major`, or an exact version like `1.2.0`). This raises the version in `manifest.json`, `package.json` and `package-lock.json`, type-checks and builds.
+2. Commit, then `git tag v1.2.0` and `git push personal main v1.2.0`.
+3. Watch the run under the repo's **Actions** tab. Review usually takes from a few hours to a few days.
+
+Use `patch` for fixes, `minor` for new features and `major` for big changes. The store rejects a version that is not higher than the last one.
+
+### One-time setup
+
+The workflow signs in as a Google service account. You create it and store its key in GitHub; nobody else needs to see it.
+
+1. **Turn on the API.** Open the Google Cloud Console (console.cloud.google.com) with the Google account that owns the extension. Create a project (for example `pixelpeek-publish`). Go to **APIs & Services → Library**, search for **Chrome Web Store API** and click **Enable**.
+2. **Create the service account.** Go to **IAM & Admin → Service Accounts → Create service account**. Name it `pixelpeek-publisher`, skip the optional roles and click **Done**.
+3. **Download its key.** Open the new service account, go to the **Keys** tab, then **Add key → Create new key → JSON**. A `.json` file downloads. Copy the `client_email` value from it (it ends in `iam.gserviceaccount.com`).
+4. **Let it publish.** In the Chrome Web Store Developer Dashboard open **Account**, find the service account section, paste that email and save. Only one service account can be added per publisher.
+5. **Find two IDs.** The **publisher ID** is under **Publisher → Settings** in the dashboard. The **item ID** is on your item's **Package** tab (the 32-letter ID, the same as on `chrome://extensions`).
+6. **Store them in GitHub.** Open github.com/Abhimanyu-dsn/pixelpeek → **Settings → Secrets and variables → Actions → New repository secret**, and add:
+   - `CWS_SERVICE_ACCOUNT`: the entire contents of the `.json` key file
+   - `CWS_PUBLISHER_ID`: the publisher ID
+   - `CWS_EXTENSION_ID`: the item ID
+7. Delete the `.json` file from your Downloads folder. GitHub keeps the only copy needed; if it is ever lost or leaked, delete the key in Google Cloud and make a new one.
+
+### By hand, if ever needed
+
+Raise the version in `manifest.json`, run `npm run build`, zip the contents of `dist/` (so `manifest.json` is at the top level), then in the dashboard open your item, **Package → Upload new package**, and submit.
