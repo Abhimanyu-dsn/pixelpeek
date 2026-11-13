@@ -1,4 +1,5 @@
-import type { Device, FrameStyle } from './devices';
+import { CATEGORY_LABELS, DEVICES, deviceById } from './devices';
+import type { Device, DeviceCategory, FrameStyle } from './devices';
 import { escapeHtml } from '../panel/html';
 import { emulationFor } from './emulation';
 import type { Emulation } from './emulation';
@@ -55,6 +56,7 @@ export class DevicePreview {
     this.el.style.display = 'none';
     this.el.addEventListener('click', (e) => this.onClick(e as MouseEvent));
     this.el.addEventListener('input', (e) => this.onInput(e as InputEvent));
+    this.el.addEventListener('change', (e) => this.onChange(e));
     for (const type of ['click', 'dblclick', 'mousedown', 'mouseup', 'pointerdown', 'pointerup', 'contextmenu', 'keydown', 'keyup']) {
       this.el.addEventListener(type, (e) => e.stopPropagation());
     }
@@ -73,7 +75,26 @@ export class DevicePreview {
     this.el.style.display = 'flex';
     this.callbacks.onVisibility(true);
     this.render();
+    window.removeEventListener('resize', this.onResize);
     window.addEventListener('resize', this.onResize);
+  }
+
+  // Swaps the device while the preview stays open; a rotated preview stays rotated.
+  private switchTo(device: Device): void {
+    this.device = device;
+    this.width = device.width;
+    this.height = device.height;
+    this.render();
+  }
+
+  private deviceSelect(current: Device): string {
+    const groups = (Object.keys(CATEGORY_LABELS) as DeviceCategory[]).map((cat) => {
+      const options = DEVICES.filter((d) => d.category === cat)
+        .map((d) => `<option value="${d.id}"${d.id === current.id ? ' selected' : ''}>${escapeHtml(d.name)}</option>`)
+        .join('');
+      return `<optgroup label="${CATEGORY_LABELS[cat]}">${options}</optgroup>`;
+    });
+    return `<select class="pp-dp-device" data-pp-dp-device aria-label="Device" title="Switch device">${groups.join('')}</select>`;
   }
 
   close(): void {
@@ -113,6 +134,7 @@ export class DevicePreview {
           <div class="pp-dp-presets">${PRESETS.map((p) => `<button class="pp-chip" data-pp-dp-preset="${p}">${p}</button>`).join('')}</div>` : ''}
         <span class="pp-dp-emu" data-pp-dp-emu></span>
         <span class="pp-dp-scale" data-pp-dp-scale></span>
+        ${this.deviceSelect(device)}
         <button class="pp-btn" data-pp-dp-rotate title="Rotate">Rotate</button>
         <button class="pp-btn" data-pp-dp-reload title="Reload the preview">Reload</button>
         <button class="pp-btn" data-pp-dp-close>Close <kbd>Esc</kbd></button>
@@ -196,6 +218,13 @@ export class DevicePreview {
     else if (t.matches('[data-pp-dp-h]')) this.height = Math.max(200, Math.min(3000, parseInt(t.value, 10) || this.height));
     else return;
     this.layout();
+  }
+
+  private onChange(e: Event): void {
+    const t = e.target as HTMLSelectElement;
+    if (!t.matches('[data-pp-dp-device]')) return;
+    const next = deviceById(t.value);
+    if (next && next.id !== this.device?.id) this.switchTo(next);
   }
 
   private onClick(e: MouseEvent): void {

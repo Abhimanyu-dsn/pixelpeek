@@ -687,6 +687,26 @@
 
 .pp-dp-bar kbd { margin-left: 4px; padding: 0 5px; border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 4px; font: 10px/14px var(--pp-mono); }
 
+.pp-dp-device {
+  height: 30px;
+  max-width: 220px;
+  padding: 0 28px 0 10px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 10px center;
+  color: #fff;
+  font: 600 12px/1 var(--pp-font);
+  appearance: none;
+  cursor: pointer;
+}
+
+.pp-dp-device:hover { background-color: rgba(255, 255, 255, 0.2); }
+
+.pp-dp-device:focus-visible { outline: 2px solid #579DFF; outline-offset: 1px; }
+
+/* The open list is drawn by the system on a light background. */
+.pp-dp-device option, .pp-dp-device optgroup { color: #172B4D; background: #fff; }
+
 .pp-dp-size { display: flex; align-items: center; gap: 6px; }
 
 .pp-dp-size input { width: 70px; padding: 4px 6px; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 6px; background: rgba(255, 255, 255, 0.1); color: #fff; font: 12px var(--pp-mono); }
